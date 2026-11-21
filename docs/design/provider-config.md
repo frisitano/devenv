@@ -82,3 +82,15 @@ Atlas selects one provider per environment through its external vault-owned Deve
 ## Review provenance
 
 Initial source audit: 1f8307d1. This view describes repository source, not proof of installed activation.
+
+
+Development dependency review against source baseline `8121554`: `devenv.nix`,
+`devenv-nix-backend/devenv.nix`, `flake.nix`, `flake.lock`, `Cargo.toml`,
+`Cargo.lock`, `nix/libghostty-vt.nix` and `nix/zig-binary.nix` define the Rust,
+Nix C-API, SQLite/OpenSSL, bindgen and Ghostty SDK requirements. An external
+development environment may provide those dependencies without importing the
+repository's provider settings or Git hooks. The invariant checked is that SDK
+selection changes no provider option, generated file owner, hook grouping or
+materialization edge in this view. The Codex fixture remains the behavioral
+check for native settings, agents, hooks and skills; dependency readiness does
+not establish installed provider or session lifecycle behavior.
